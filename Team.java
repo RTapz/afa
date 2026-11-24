@@ -43,12 +43,10 @@ public class Team{
     }
 
     public void setName(String name){
-        if (name != null && !name.isBlank()){
-            this.name = name;
+        if (name == null || name.isBlank()){
+            throw new IllegalArgumentException("Name cannot be null or empty");
         }
-        else {
-            System.out.println("Name cannot be empty.");
-        }
+        this.name = name;
     }
 
     public int getYearFounded(){
@@ -57,12 +55,10 @@ public class Team{
 
     public void setYearFounded(int yearFounded){
         int currentYear = Year.now().getValue();
-        if(yearFounded >= 2002 && yearFounded <= currentYear){
-            this.yearFounded = yearFounded;
-        }
-        else{
+        if(yearFounded < 2002 && yearFounded > currentYear){
             System.out.println("Year must be between 2002 and current year inclusive.");
         }
+        this.yearFounded = yearFounded;
     }
 
     public int getPoints(){
@@ -70,23 +66,22 @@ public class Team{
     }
 
     public void setPoints(int points){
-        if (points >= 0){
-            this.points = points;
-        } else {
-            System.out.println("Points cannot be negative.");
+        if (points < 0){
+            throw new IllegalArgumentException("Points cannot be negative.");
         }
+        this.points = points;
     }
+    
 
     public int getGoalsFor(){
         return this.goalsFor;
     }
 
     public void setGoalsFor(int goalsFor){
-        if (goalsFor >= 0){
-            this.goalsFor = goalsFor;
-        } else {
-            System.out.println("Goals for cannot be negative.");
+        if (goalsFor < 0){
+            throw new IllegalArgumentException("Goals for cannot be negative.");
         }
+        this.goalsFor = goalsFor;
     }
 
     public int getGoalsAgainst(){
@@ -94,11 +89,10 @@ public class Team{
     }
 
     public void setGoalsAgainst(int goalsAgainst){
-        if (goalsAgainst >= 0){
-            this.goalsAgainst = goalsAgainst;
-        } else {
-            System.out.println("Goals against cannot be negative.");
+        if (goalsAgainst < 0){
+            throw new IllegalArgumentException("Goals against cannot be negative.");
         }
+        this.goalsAgainst = goalsAgainst;
     }
 
     public int getMatchesPlayed(){
@@ -106,11 +100,10 @@ public class Team{
     }
 
     public void setMatchesPlayed(int matchesPlayed){
-        if (matchesPlayed >= 0){
-            this.matchesPlayed = matchesPlayed;
-        } else {
-            System.out.println("Matches played cannot be negative.");
+        if (matchesPlayed < 0){
+            throw new IllegalArgumentException("Matches played cannot be negative.");
         }
+        this.matchesPlayed = matchesPlayed;
     }
 
     public int getWins(){
@@ -118,11 +111,10 @@ public class Team{
     }
 
     public void setWins(int wins){
-        if (wins >= 0){
-            this.wins = wins;
-        } else {
-            System.out.print("Wins cannot be negative.");
+        if (wins < 0){
+            throw new IllegalArgumentException("Wins cannot be negative.");
         }
+        this.wins = wins;
     }
 
     public int getDraws(){
@@ -130,11 +122,10 @@ public class Team{
     }
 
     public void setDraws(int draws){
-        if (draws >= 0){
-            this.draws = draws;
-        } else {
-            System.out.print("Draws cannot be negative.");
+        if (draws < 0){
+            throw new IllegalArgumentException("Draws cannot be negative");
         }
+        this.draws = draws;
     }
 
     public int getLosses(){
@@ -142,20 +133,16 @@ public class Team{
     }
 
     public void setLosses(int losses){
-        if (losses >= 0){
-            this.losses = losses;
-        } else {
-            System.out.print("Losses cannot be negative.");
+        if (losses < 0){
+            throw new IllegalArgumentException("Losses cannot be negative");
         }
+        this.losses = losses;
     }
 
     public int getGoalDifference(){
-        return this.goalDifference;
+        return this.goalsFor - this.goalsAgainst;
     }
 
-    public void setGoalDifference(int goalDifference){
-        this.goalDifference = goalDifference;
-    }
 
     // get the current number of players in the team
     public int getPlayerCount(){
@@ -187,6 +174,9 @@ public class Team{
     }
 
     public void setCoach(Coach coach){
+        if (coach == null){
+            throw new IllegalArgumentException("Coach cannot be null");
+        }
         this.coach = coach;
     }
 
@@ -201,22 +191,21 @@ public class Team{
     // For arrays, handle null
     public void setPlayers(Player[] players){
         if(players == null){
-            this.players = null;
-        } else{
-            // fill in null spaces with player objects
-            // pick players from the parameter to add
-            for (int i = 0; i < players.length; i++){    
-                // loop through the team's player list
-                for (int j = 0; j < this.players.length; j++){
-                    //if the player is already in the team, move on to check the next player
-                    if(players[i] == this.players[j]){
-                        break;
-                    }
-                    // if the slot is empty, put the player in the team
-                    if(this.players[j] == null){
-                        this.players[j] = players[i];
-                        continue;
-                    }
+            throw new IllegalArgumentException("Players cannot be null");
+        } 
+        // fill in null spaces with player objects
+        // pick players from the parameter to add
+        for (int i = 0; i < players.length; i++){    
+            // loop through the team's player list
+            for (int j = 0; j < this.players.length; j++){
+                //if the player is already in the team, move on to check the next player
+                if(players[i] == this.players[j]){
+                    break;
+                }
+                // if the slot is empty, put the player in the team
+                if(this.players[j] == null){
+                    this.players[j] = players[i];
+                    continue;
                 }
             }
         }
@@ -231,10 +220,9 @@ public class Team{
 
     public void setAssistantCoaches(AssistantCoach[] assistantCoaches){
         if (assistantCoaches == null){
-            this.assistantCoaches = null;
-        } else {
-            this.assistantCoaches = Arrays.copyOf(assistantCoaches, assistantCoaches.length);
-        }
+            throw new IllegalArgumentException("Assistant coaches cannot be null");
+        }            
+        this.assistantCoaches = Arrays.copyOf(assistantCoaches, assistantCoaches.length);
     }
 
 
