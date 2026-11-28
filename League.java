@@ -166,7 +166,7 @@ public class League {
     public void displayFixtures(){
         System.out.println(getName() + "Fixtures");
         for(int i = 0; i < getFixtures().length; i++){
-            System.out.printf("%d. %s vs %s", i+1, fixtures[i].homeTeam.name, fixtures[i].awayTeam.name);
+            System.out.printf("%d. %s vs %s", i+1, fixtures[i].getHomeTeam().getName(), fixtures[i].getAwayTeam().getName());
         }
     }
 
