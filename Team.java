@@ -181,7 +181,7 @@ public class Team{
     }
 
     // For arrays, handle null and return a copy of the original
-    public Players[] getPlayers(){
+    public Player[] getPlayers(){
         if (this.players == null){
             return null;
         }

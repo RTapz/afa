@@ -176,7 +176,7 @@ public class League {
             throw new IllegalArgumentException("Player cannot be null");
         }
         if (transferFrom == null || transferTo == null){
-            throw new IllegalArgumentException("Teams cannot be null")
+            throw new IllegalArgumentException("Teams cannot be null");
         }
         // check whether both teams exist
         boolean t1Exists;
