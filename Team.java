@@ -244,19 +244,31 @@ public class Team{
     }
 
     public void updateStats(Match match){
+        if (this == match.getHomeTeam()) {
+            goalsFor = match.getHomeGoals();
+            goalsAgainst = match.getAwayGoals();
+        } else if (this == match.getAwayTeam()) {
+            goalsFor = match.getAwayGoals();
+            goalsAgainst = match.getHomeGoals();
+        } else {
+            throw new IllegalArgumentException("This team is not part of the match.");
+        }
+
         // update matches played
         this.setMatchesPlayed(this.getMatchesPlayed() + 1);
         // update goals for
-        this.setGoalsFor(this.getGoalsFor() + match.goalsFor);
+        this.setGoalsFor(this.getGoalsFor() + goalsFor);
         // update goals against
-        this.setGoalsAgainst(this.getGoalsAgainst() + match.goalsAgainst);
+        this.setGoalsAgainst(this.getGoalsAgainst() + goalsAgainst);
         // update goal difference
-        this.setGoalDifference(this.getGoalsFor() - this.getGoalsAgainst());
+        this.goalDifference = this.getGoalsFor() - this.getGoalsAgainst();
         // update wins, draws, losses, goal difference and points based on goals
-        if (match.goalsFor > match.goalsAgainst){
+    
+
+        if (goalsFor > goalsAgainst){
             this.setWins(this.getWins() + 1);
             this.setPoints(this.getPoints() + 3);
-        } else if (match.goalsFor == match.goalsAgainst){
+        } else if (goalsFor == goalsAgainst){
             this.setDraws(this.getDraws() + 1);
             this.setPoints(this.getPoints() + 1);
         } else {

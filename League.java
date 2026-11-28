@@ -1,4 +1,3 @@
-import java.security.Key;
 import java.util.Arrays;
 
 public class League {
@@ -74,7 +73,7 @@ public class League {
         }
     }
 
-    public void setfixtures(Match[] fixtures){
+    public void setFixtures(Match[] fixtures){
         if(fixtures == null){
             this.fixtures = null;
         } else{
@@ -161,7 +160,7 @@ public class League {
                 return;
             }
         }
-        fixtures[fixturePostion] = match;
+        fixtures[fixturePosition] = match;
     }
 
     public void displayFixtures(){
@@ -174,7 +173,7 @@ public class League {
     public void transferPlayer(Player player, Team transferFrom, Team transferTo){
         // make sure arguments are not null
         if (player == null){
-            throw new IllegalArgumentExcepetion("Player cannot be null");
+            throw new IllegalArgumentException("Player cannot be null");
         }
         if (transferFrom == null || transferTo == null){
             throw new IllegalArgumentException("Teams cannot be null")
@@ -202,8 +201,8 @@ public class League {
                         }
                     // put the player in the new team and set his value in the old team to null
                     for (int j = 0; j < transferFrom.getPlayers().length; j++){
-                        if (transferFrom.getPlayers()[i] == player){
-                            transferFrom.getPlayers()[i] = null;
+                        if (transferFrom.getPlayers()[j] == player){
+                            transferFrom.getPlayers()[j] = null;
                         }
                     }
                 }
@@ -330,6 +329,4 @@ public class League {
                 sorted[i].getLosses(), sorted[i].getGoalDifference(), sorted[i].getPoints());
         }
     }
-}
-
 }
